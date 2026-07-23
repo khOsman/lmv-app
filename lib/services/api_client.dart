@@ -16,13 +16,21 @@ class ApiClient {
   static final ApiClient instance = ApiClient._();
 
   static const _tokenKey = 'dm_session_token';
+  static const _dmNameKey = 'dm_name';
   final _storage = const FlutterSecureStorage();
 
   Future<void> saveToken(String token) => _storage.write(key: _tokenKey, value: token);
 
   Future<String?> readToken() => _storage.read(key: _tokenKey);
 
-  Future<void> clearToken() => _storage.delete(key: _tokenKey);
+  Future<void> saveDmName(String name) => _storage.write(key: _dmNameKey, value: name);
+
+  Future<String?> readDmName() => _storage.read(key: _dmNameKey);
+
+  Future<void> clearToken() => Future.wait([
+        _storage.delete(key: _tokenKey),
+        _storage.delete(key: _dmNameKey),
+      ]);
 
   Future<Map<String, String>> _headers({bool withAuth = true}) async {
     final headers = {'Content-Type': 'application/json'};

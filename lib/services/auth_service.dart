@@ -30,6 +30,7 @@ class AuthService {
     if (ApiConfig.useMockData) {
       await Future.delayed(const Duration(milliseconds: 400));
       await _client.saveToken('mock-dm-token');
+      await _client.saveDmName('Demo DM');
       return 'Demo DM';
     }
 
@@ -107,10 +108,14 @@ class AuthService {
       throw const ApiException('Login response did not include a session token.');
     }
     await _client.saveToken(token);
-    return (data['dmName'] as String?) ?? 'DM';
+    final dmName = (data['dmName'] as String?) ?? 'DM';
+    await _client.saveDmName(dmName);
+    return dmName;
   }
 
   Future<bool> isLoggedIn() async => (await _client.readToken()) != null;
+
+  Future<String?> getDmName() => _client.readDmName();
 
   Future<void> logout() => _client.clearToken();
 

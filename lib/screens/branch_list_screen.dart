@@ -18,11 +18,15 @@ class BranchListScreen extends StatefulWidget {
 
 class _BranchListScreenState extends State<BranchListScreen> {
   late Future<List<Branch>> _branchesFuture;
+  String? _dmName;
 
   @override
   void initState() {
     super.initState();
     _branchesFuture = LearnerService.instance.getBranches();
+    AuthService.instance.getDmName().then((name) {
+      if (mounted) setState(() => _dmName = name);
+    });
   }
 
   Future<void> _refresh() async {
@@ -45,7 +49,7 @@ class _BranchListScreenState extends State<BranchListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Branches'),
+        title: Text(_dmName ?? 'My Branches'),
         actions: [
           IconButton(icon: const Icon(Icons.logout), onPressed: _logout, tooltip: 'Log out'),
         ],
