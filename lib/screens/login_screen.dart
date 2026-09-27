@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "You'll log in with your Salesforce account on Salesforce's own login page.",
+                  "You'll log in with your Taroworks account.",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 13, color: AppColors.coolGray),
                 ),
@@ -88,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 20,
                           child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                         )
-                      : const Text('Log In with Salesforce'),
+                      : const Text('Log In with Taroworks'),
                 ),
                 if (ApiConfig.useMockData) ...[
                   const SizedBox(height: 20),

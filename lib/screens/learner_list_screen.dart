@@ -169,8 +169,13 @@ class _LearnerCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 6),
+            if (learner.learnerCode.isNotEmpty)
+              _InfoRow(icon: Icons.badge_outlined, text: 'Learner ID: ${learner.learnerCode}'),
             _InfoRow(icon: Icons.wc, text: learner.gender),
-            _InfoRow(icon: Icons.phone_outlined, text: learner.maskedPhone),
+            _InfoRow(icon: Icons.phone_outlined, text: learner.phone),
+            _InfoRow(icon: Icons.man_outlined, text: _labeled('Father', learner.fatherName)),
+            _InfoRow(icon: Icons.woman_outlined, text: _labeled('Mother', learner.motherName)),
+            _InfoRow(icon: Icons.home_outlined, text: learner.address),
             if (learner.status == VerifyStatus.verified && learner.pvcCode != null)
               _InfoRow(icon: Icons.badge_outlined, text: 'PVC: ${learner.pvcCode}'),
             const SizedBox(height: 10),
@@ -191,6 +196,8 @@ class _LearnerCard extends StatelessWidget {
       ),
     );
   }
+
+  static String _labeled(String label, String value) => value.isEmpty ? '' : '$label: $value';
 }
 
 class _InfoRow extends StatelessWidget {
