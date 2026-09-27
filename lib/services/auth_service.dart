@@ -31,6 +31,7 @@ class AuthService {
       await Future.delayed(const Duration(milliseconds: 400));
       await _client.saveToken('mock-dm-token');
       await _client.saveDmName('Demo DM');
+      await _client.saveDmUsername('demo.dm@example.com');
       return 'Demo DM';
     }
 
@@ -110,12 +111,16 @@ class AuthService {
     await _client.saveToken(token);
     final dmName = (data['dmName'] as String?) ?? 'DM';
     await _client.saveDmName(dmName);
+    final dmUsername = data['dmUsername'] as String?;
+    if (dmUsername != null) await _client.saveDmUsername(dmUsername);
     return dmName;
   }
 
   Future<bool> isLoggedIn() async => (await _client.readToken()) != null;
 
   Future<String?> getDmName() => _client.readDmName();
+
+  Future<String?> getDmUsername() => _client.readDmUsername();
 
   Future<void> logout() => _client.clearToken();
 

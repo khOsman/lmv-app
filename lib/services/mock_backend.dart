@@ -31,6 +31,7 @@ class MockBackend {
           "motherName": "Rahima Begum",
           "address": "House 12, Road 4, Mirpur, Dhaka",
           "status": "pending",
+          "selection": "No",
           "pvcCode": null,
         },
         {
@@ -44,6 +45,7 @@ class MockBackend {
           "motherName": "Shirin Akter",
           "address": "House 5, Road 9, Uttara, Dhaka",
           "status": "verified",
+          "selection": "No",
           "pvcCode": "PVC458",
         },
         {
@@ -57,6 +59,7 @@ class MockBackend {
           "motherName": "Nasrin Sultana",
           "address": "House 20, Road 2, Gazipur Sadar",
           "status": "duplicate",
+          "selection": "No",
           "pvcCode": null,
         },
         {
@@ -70,6 +73,7 @@ class MockBackend {
           "motherName": "Ferdousi Begum",
           "address": "House 8, Road 1, Savar, Dhaka",
           "status": "pending",
+          "selection": "No",
           "pvcCode": null,
         },
       ],
@@ -89,6 +93,7 @@ class MockBackend {
           "motherName": "Nasrin Sultana",
           "address": "House 20, Road 2, Gazipur Sadar",
           "status": "duplicate",
+          "selection": "No",
           "pvcCode": null,
         },
         {
@@ -102,6 +107,7 @@ class MockBackend {
           "motherName": "Salma Khatun",
           "address": "House 15, Road 6, Tongi, Gazipur",
           "status": "pending",
+          "selection": "No",
           "pvcCode": null,
         },
       ],

@@ -37,6 +37,7 @@ class Learner {
   final String fatherName;
   final String motherName;
   final String address;
+  final String selection;
   final VerifyStatus status;
   final String? pvcCode;
 
@@ -50,6 +51,7 @@ class Learner {
     required this.fatherName,
     required this.motherName,
     required this.address,
+    required this.selection,
     required this.status,
     this.pvcCode,
   });
@@ -65,6 +67,7 @@ class Learner {
       fatherName: json['fatherName'] as String? ?? '',
       motherName: json['motherName'] as String? ?? '',
       address: json['address'] as String? ?? '',
+      selection: json['selection'] as String? ?? 'No',
       status: VerifyStatus.fromString(json['status'] as String?),
       pvcCode: json['pvcCode'] as String?,
     );
@@ -81,6 +84,7 @@ class Learner {
       fatherName: fatherName,
       motherName: motherName,
       address: address,
+      selection: selection,
       status: status ?? this.status,
       pvcCode: pvcCode ?? this.pvcCode,
     );

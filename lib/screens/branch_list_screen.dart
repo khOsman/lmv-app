@@ -19,6 +19,7 @@ class BranchListScreen extends StatefulWidget {
 class _BranchListScreenState extends State<BranchListScreen> {
   late Future<List<Branch>> _branchesFuture;
   String? _dmName;
+  String? _dmUsername;
 
   @override
   void initState() {
@@ -26,6 +27,9 @@ class _BranchListScreenState extends State<BranchListScreen> {
     _branchesFuture = LearnerService.instance.getBranches();
     AuthService.instance.getDmName().then((name) {
       if (mounted) setState(() => _dmName = name);
+    });
+    AuthService.instance.getDmUsername().then((username) {
+      if (mounted) setState(() => _dmUsername = username);
     });
   }
 
@@ -51,7 +55,50 @@ class _BranchListScreenState extends State<BranchListScreen> {
       appBar: AppBar(
         title: Text(_dmName ?? 'My Branches'),
         actions: [
-          IconButton(icon: const Icon(Icons.logout), onPressed: _logout, tooltip: 'Log out'),
+          PopupMenuButton<String>(
+            tooltip: 'Account',
+            icon: const CircleAvatar(
+              radius: 16,
+              backgroundColor: Colors.white24,
+              child: Icon(Icons.person, color: Colors.white, size: 20),
+            ),
+            onSelected: (value) {
+              if (value == 'logout') _logout();
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem<String>(
+                enabled: false,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      _dmName ?? 'DM',
+                      style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.neutralBlack),
+                    ),
+                    if (_dmUsername != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        _dmUsername!,
+                        style: TextStyle(fontSize: 12, color: AppColors.coolGray),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const PopupMenuDivider(),
+              const PopupMenuItem<String>(
+                value: 'logout',
+                child: Row(
+                  children: [
+                    Icon(Icons.logout, size: 18, color: AppColors.red),
+                    SizedBox(width: 10),
+                    Text('Log out', style: TextStyle(color: AppColors.red)),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
       body: RefreshIndicator(

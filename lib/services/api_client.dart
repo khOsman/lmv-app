@@ -17,6 +17,7 @@ class ApiClient {
 
   static const _tokenKey = 'dm_session_token';
   static const _dmNameKey = 'dm_name';
+  static const _dmUsernameKey = 'dm_username';
   final _storage = const FlutterSecureStorage();
 
   Future<void> saveToken(String token) => _storage.write(key: _tokenKey, value: token);
@@ -27,9 +28,14 @@ class ApiClient {
 
   Future<String?> readDmName() => _storage.read(key: _dmNameKey);
 
+  Future<void> saveDmUsername(String username) => _storage.write(key: _dmUsernameKey, value: username);
+
+  Future<String?> readDmUsername() => _storage.read(key: _dmUsernameKey);
+
   Future<void> clearToken() => Future.wait([
         _storage.delete(key: _tokenKey),
         _storage.delete(key: _dmNameKey),
+        _storage.delete(key: _dmUsernameKey),
       ]);
 
   Future<Map<String, String>> _headers({bool withAuth = true}) async {
